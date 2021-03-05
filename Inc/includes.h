@@ -17,5 +17,6 @@
 #include "Port_Functions.h"
 #include "System_Init.h"
 #include "TImeBase.h"
+#include "Usart.h"
 
 #endif /* INCLUDES_H_ */

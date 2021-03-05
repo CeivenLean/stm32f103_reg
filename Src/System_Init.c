@@ -14,6 +14,10 @@ void SystemInit(void)
   NVIC_Config();
   TIM3_Config();
   TIM4_Config();
+  USART1_Config();
+  USART2_Config();
+//  uart_init1(64,9600);
+//  uart_init2(32,9600);
 
 }
 
