@@ -100,7 +100,7 @@ static u16 fac_ms=0;              //ms延时倍乘数
 void delay_init(void)
 {
   SysTick->CTRL&=~(1<<2);         //SYSTICK使用外部时钟源
-  fac_us=SysClk/8;            //
+  fac_us=SYSCLK/8;            //
   fac_ms=(u16)fac_us*1000;        //代表每个ms需要的systick时钟数
 }
 

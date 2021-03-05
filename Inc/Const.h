@@ -10,9 +10,9 @@
 
 
 #ifdef HSESystemClk
-  #define SysClk 72  //外部晶振72M
+  #define SYSCLK 72  //外部晶振72M
 #else
-  #define SysClk 64  //内部时钟64M
+  #define SYSCLK 64  //内部时钟64M
 #endif
 
 

@@ -107,7 +107,7 @@ void USART1_Config(void)
   NVIC->IP[USART1_IRQn] |= 0xE0; //串口1抢占级7，响应级0;
 }
 
-/* USART1配置 */
+/* USART2配置 */
 void USART2_Config(void)
 {
   /*

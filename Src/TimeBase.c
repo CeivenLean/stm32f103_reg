@@ -76,13 +76,13 @@ void TIM4_IRQHandler(void)
  */
 void TIM3_Config(void)
 {
-  RCC->APB1ENR |= 1<<1;
+  RCC->APB1ENR |= 1<<1;    //使用TIM3时钟
 
   /* Tout = ( (arr+1) * (psc+1) ) / Tclk
    * 则每 ((4+1) * (6399+1)) /64 = 500us 产生一次中断
    */
   TIM3->ARR = 4;    //设定计数器自动重装值
-  TIM3->PSC = (SysClk*100 -1);    //预分频器6400,得到10Khz的计数时钟
+  TIM3->PSC = (SYSCLK*100 -1);    //预分频器6400,得到10Khz的计数时钟
   TIM3->DIER |= 1<<0;   //允许更新中断
   TIM3->CR1 |= 0x01;    //使能定时器3
 
@@ -95,12 +95,12 @@ void TIM3_Config(void)
  */
 void TIM4_Config(void)
 {
-  RCC->APB1ENR |= 1<<2;
+  RCC->APB1ENR |= 1<<2;    //使用TIM4时钟
   /*
    * 每 ((49+1) * (6399+1)) /64 = 5000us, 5ms产生一次中断
    */
   TIM4->ARR = 49;    //设定计数器自动重装值
-  TIM4->PSC = (SysClk*100 -1);    //预分频器6400,得到10Khz的计数时钟
+  TIM4->PSC = (SYSCLK*100 -1);    //预分频器6400,得到10Khz的计数时钟
   TIM4->DIER |= 1<<0;   //允许更新中断
   TIM4->CR1 |= 0x01;    //使能定时器3
 
