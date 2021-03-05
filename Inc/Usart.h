@@ -32,6 +32,30 @@ extern pSTx Tx;
 extern SRx  sRx_;
 extern pSRx Rx;
 
+typedef struct
+{
+  bool Success;
+  u16 Number;
+  u8  Data[10];
+  u16 Count;
+
+}STx2, *pSTx2;
+
+typedef struct
+{
+  bool Success;
+  u16 Number;
+  u8  Data[10];
+  u16 Count;
+
+}SRx2, *pSRx2;
+
+extern STx2  sTx2_;
+extern pSTx2 Tx2;
+
+extern SRx2  sRx2_;
+extern pSRx2 Rx2;
+
 void USART1_Config(void);
 void USART2_Config(void);
 void USART1_Send(void);

@@ -13,6 +13,11 @@ pSTx Tx = &sTx_;
 SRx  sRx_;
 pSRx Rx = &sRx_;
 
+STx2  sTx2_;
+pSTx2 Tx2 = &sTx2_;
+SRx2  sRx2_;
+pSRx2 Rx2 = &sRx2_;
+
 
 void USART1_IRQHandler(void)
 {
@@ -38,9 +43,20 @@ void USART1_IRQHandler(void)
  */
 void USART2_IRQHandler(void)
 {
+  Rx2->Number = 10;
   if(USART2->SR &(1<<5))
   {
-    ;
+    Rx2->Data[Rx2->Count] = USART2->DR;
+    if(Rx2->Data[0] == 0x95 && Rx2->Count < Rx2->Number)
+    {
+      Rx2->Count ++;
+    }
+    else Rx2->Count = 0;
+    if(Rx2->Count >= Rx2->Number)
+    {
+      Rx2->Success = true;
+      Rx2->Count = 0;
+    }
   }
 }
 
