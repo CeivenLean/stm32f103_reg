@@ -60,6 +60,8 @@ typedef struct
 extern STim4  sTim4_;
 extern pSTim4 Tim4;
 
+void TIM1_PWM_Init(u16 arr,u16 psc);
+void TIM1_Config(void);
 void TIM3_Config(void);
 void TIM4_Config(void);
 

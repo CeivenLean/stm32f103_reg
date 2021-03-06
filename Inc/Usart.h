@@ -56,6 +56,7 @@ extern pSTx2 Tx2;
 extern SRx2  sRx2_;
 extern pSRx2 Rx2;
 
+void UsartService(void);
 void USART1_Config(void);
 void USART2_Config(void);
 void USART1_Send(void);

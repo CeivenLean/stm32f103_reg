@@ -13,34 +13,19 @@ int main(void)
 {
   SystemInit();
   LED_Init();
-
-  u8 Tx2Count = 0;
+  uint16_t pwmVal=0;   //PWM占空比
     /* Loop forever */
 	while(1)
 	{
-	  if(Rx->Success == true)
-	  {
-	    Rx->Success = false;
-	    Tx2Count = 0;
-	    while(Tx2Count < 10)
-	    {
-	      USART2->DR = Rx->Data[Tx2Count];
-	      while((USART2->SR &0X40) == 0);//等待发送结束
-	      Tx2Count ++;
-	    }
-	    Tx2Count = 0;
-	  }
-    if(Rx2->Success == true)
+	  //UsartService();
+    if(pwmVal< 1000)
     {
-      Rx2->Success = false;
-      Tx2Count = 0;
-      while(Tx2Count < 10)
-      {
-        USART1->DR = Rx2->Data[Tx2Count];
-        while((USART1->SR &0X40) == 0);//等待发送结束
-        Tx2Count ++;
-      }
-      Tx2Count = 0;
+      pwmVal++;
+      TIM1->CCR1 = pwmVal;
+      TIM1->CCR2 = pwmVal;
+      TIM1->CCR3 = pwmVal;
     }
+    else pwmVal = 0;
+    delay_ms(1);
 	}
 }

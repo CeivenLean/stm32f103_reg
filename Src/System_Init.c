@@ -14,6 +14,8 @@ void SystemInit(void)
   delay_init();
   AFIO_Config();
   NVIC_Config();
+  //TIM1_Config();
+  TIM1_PWM_Init(999,6399);
   TIM3_Config();
   TIM4_Config();
   USART1_Config();
