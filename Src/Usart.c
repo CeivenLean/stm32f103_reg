@@ -26,8 +26,8 @@ void UsartService(void)
     u8 Tx2Count = 0;
     while(Tx2Count < 10)
     {
-      USART2->DR = Rx->Data[Tx2Count];
-      while((USART2->SR &0X40) == 0);//等待发送结束
+      USART1->DR = Rx->Data[Tx2Count];
+      while((USART1->SR &0X40) == 0);//等待发送结束
       Tx2Count ++;
     }
     Tx2Count = 0;
@@ -38,8 +38,8 @@ void UsartService(void)
     u8 Tx2Count = 0;
     while(Tx2Count < 10)
     {
-      USART1->DR = Rx2->Data[Tx2Count];
-      while((USART1->SR &0X40) == 0);//等待发送结束
+      USART2->DR = Rx2->Data[Tx2Count];
+      while((USART2->SR &0X40) == 0);//等待发送结束
       Tx2Count ++;
     }
     Tx2Count = 0;
@@ -123,10 +123,11 @@ void USART1_Config(void)
   //RCC->APB2RSTR |= 1<<14;    //复位串口1
   //RCC->APB2RSTR &= ~(1<<14);//停止复位
   RCC->APB2ENR |= 1<<14;    //使能串口1时钟
-
-  RCC->APB2ENR |= 1<<2;       //使能 PORTA 口时钟
-  GPIOA->CRH &= 0xFFFFF00F;    // PA9:USART1_TX,  PA10:USART1_RX
-  GPIOA->CRH |= 0x000008B0;    // PA9:复用推挽输出(50M)    PA10:下拉输入
+  RCC->APB2ENR |= 1<<3;       //使能 PORTB 口时钟
+  RCC->APB2ENR |= 1<<0;       //使能 AFIO 口时钟
+  AFIO->MAPR |= 1<<2;
+  GPIOB->CRL &= 0x00FFFFFF;    // PB6:USART1_TX,  PB7:USART1_RX
+  GPIOB->CRL |= 0x8B000000;    // PB6:复用推挽输出(50M)    PB7:下拉输入
 
   USART1->BRR = 0x1A0A;
   USART1->CR1 |= 0x212C;
@@ -141,8 +142,8 @@ void USART2_Config(void)
    * 波特率9600
    * UE、PEIE、RXNEIE、TE、RE使能
    */
-  RCC->APB1RSTR |= 1<<17;   //复位串口2
-  RCC->APB1RSTR &= ~(1<<17);//停止复位
+//  RCC->APB1RSTR |= 1<<17;   //复位串口2
+//  RCC->APB1RSTR &= ~(1<<17);//停止复位
   RCC->APB1ENR |= 1<<17;   //使能串口2时钟
 
   RCC->APB2ENR |= 1<<2;       //使能 PORTA 口时钟

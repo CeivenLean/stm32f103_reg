@@ -4,29 +4,34 @@
  *  Created on: Mar 5, 2021
  *      Author: xxxl
  */
-
+/* Includes ------------------------------------------------------------------*/
 #include "includes.h"
-
-
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 void SystemInit(void)
 {
   SystemClock_Config();
   delay_init();
   AFIO_Config();
   NVIC_Config();
-  //TIM1_Config();
-  TIM1_PWM_Init(999,6399);
+  TIM1_Config();
   TIM3_Config();
   TIM4_Config();
   USART1_Config();
   USART2_Config();
-//  uart_init1(64,9600);
-//  uart_init2(32,9600);
+////  uart_init1(64,9600);
+////  uart_init2(32,9600);
 
 }
 
 void SystemClock_Config(void)
 {
+  //设置NVIC的向量表偏移寄存器
+  SCB->VTOR = 0x08000000;//设置NVIC的向量表偏移寄存器
 #ifdef HSESystemClk
   unsigned char temp=0;
   //MYRCC_DeInit();     //复位并配置向量表
@@ -68,7 +73,7 @@ void SystemClock_Config(void)
  */
 void AFIO_Config(void)
 {
-  AFIO->MAPR |= 2<<24;
+  RCC->APB2ENR |= 1<<0;     //开启复用时钟
 }
 
 /*
