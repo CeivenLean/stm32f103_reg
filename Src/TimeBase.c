@@ -77,9 +77,22 @@ void TIM4_IRQHandler(void)
     if(Tim4->t5ms == 60)
     {
       Tim4->t5ms = 0;
-      PB0_R;
-      PB1_R;
-      PB5_R;
+      if((PB0_O!=0) && (PB1_O!=0) && (PB5_O!=0))    //初始状态
+      {
+        PB0_L;    //PB0
+      }
+      else if((PB0_O==0) && (PB1_O!=0) && (PB5_O!=0))
+      {
+        PB1_L;PB0_H;    //PB1
+      }
+      else if((PB0_O!=0) && (PB1_O==0) && (PB5_O!=0))
+      {
+        PB5_L;PB1_H;    //PB5
+      }
+      else if((PB0_O!=0) && (PB1_O!=0) && (PB5_O==0))
+      {
+        PB0_L;PB5_H;    //PB0
+      }
     }
   }
   TIM4->SR &= ~(1<<0);//清除中断标志位
@@ -109,7 +122,7 @@ void TIM1_Config(void)
   TIM1->CR2 |= 1<<9;
   TIM1->CR2 |= 7<<4;
 
-  TIM1->ARR = 800;           //设定计数器自动重装值     ①1
+  TIM1->ARR = 900;           //设定计数器自动重装值     ①1
   TIM1->PSC = 0;           //预分频器设置             ②2
   TIM1->CR1 |= 0x80;       //ARPE使能,开始所有输出通道,默认向上计数   ⑦7
   TIM1->RCR = 1;
