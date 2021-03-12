@@ -1,3 +1,5 @@
 /Debug/
 /.DS_Store
 /f103reg Debug.cfg
+/f103reg Debug.launch
+/STM32F103ZETX_FLASH.ld
